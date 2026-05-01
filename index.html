@@ -548,7 +548,7 @@ footer{background:var(--dk);padding:40px;text-align:center}
       <li>Cancel before shipping. full refund</li>
       <li>Priority access to future products</li>
     </ul>
-    <a href="https://buy.stripe.com/REPLACE_WITH_YOUR_STRIPE_LINK" id="cta-reserve" class="br">Reserve my founding spot for $20<small>Fully refundable · founding price locked forever</small></a>
+    <a href="https://keravex.gumroad.com/l/keravexfounder?wanted=true" id="cta-reserve" class="br" target="_blank" rel="noopener" onclick="if(window.fbq)fbq('track','InitiateCheckout',{value:20,currency:'USD'});">Reserve my founding spot for $20<small>Fully refundable · founding price locked forever</small></a>
     <button class="bwl" onclick="openM()">Join free waitlist instead →</button>
     <p class="pref">Your $20 is 100% refundable within 30 days on demand. Auto-refund if we don't ship by October 2026. No questions asked.</p>
   </div>
@@ -648,7 +648,59 @@ function showExitPopup(){
 document.addEventListener('mouseleave',e=>{if(e.clientY<5)showExitPopup()});
 setTimeout(()=>{if(!popupShown)showExitPopup()},45000);
 function closeExit(){document.getElementById('exit-popup').classList.remove('on')}
-function subM(e){e.preventDefault();document.getElementById('mf').style.display='none';document.getElementById('mok').style.display='block';setTimeout(closeM,2500);}
+async function subM(e){
+  e.preventDefault();
+  const form = e.target;
+  const emailInput = form.querySelector('input[type="email"]');
+  const email = emailInput ? emailInput.value.trim() : '';
+  if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    alert('Please enter a valid email');
+    return false;
+  }
+  const submitBtn = form.querySelector('button[type="submit"], button:not([type])');
+  const originalText = submitBtn ? submitBtn.textContent : '';
+  if(submitBtn){submitBtn.disabled=true; submitBtn.textContent='Joining...';}
+  try {
+    const response = await fetch('https://a.klaviyo.com/client/subscriptions/?company_id=YnQ4XE', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'revision': '2024-10-15'
+      },
+      body: JSON.stringify({
+        data: {
+          type: 'subscription',
+          attributes: {
+            profile: {
+              data: {
+                type: 'profile',
+                attributes: {
+                  email: email,
+                  properties: { source: 'keravex_homepage_waitlist' },
+                  subscriptions: { email: { marketing: { consent: 'SUBSCRIBED' } } }
+                }
+              }
+            }
+          },
+          relationships: { list: { data: { type: 'list', id: 'UdkvsY' } } }
+        }
+      })
+    });
+    if(response.status === 202 || response.ok){
+      if(window.fbq) fbq('track','Lead',{content_name:'Waitlist'});
+      document.getElementById('mf').style.display='none';
+      document.getElementById('mok').style.display='block';
+      setTimeout(closeM, 2500);
+    } else {
+      throw new Error('Subscription failed: ' + response.status);
+    }
+  } catch(err){
+    console.error('Klaviyo error:', err);
+    alert('Something went wrong. Please try again or email hello@keravex.com');
+    if(submitBtn){submitBtn.disabled=false; submitBtn.textContent=originalText;}
+  }
+  return false;
+}
 
 // EXIT INTENT
 let exitShown = false;
@@ -665,7 +717,7 @@ function closeExit() {
 }
 function openMFromExit() {
   closeExit();
-  
+  openM();
 }
 // Also show on back button intent (mobile)
 window.addEventListener('beforeunload', function(e) {
