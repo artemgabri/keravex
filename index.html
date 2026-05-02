@@ -312,11 +312,15 @@ footer{background:var(--dk);padding:40px;text-align:center}
 img{max-width:100%;height:auto;display:block}
 
 /* MOBILE EXTRA CLEANUP */
+@media(max-width:960px){
+  .pain-col img,.ba-col img{aspect-ratio:4/3!important;width:100%;object-position:center}
+  .life-band{height:300px}
+}
 @media(max-width:600px){
   .hero h1{font-size:clamp(32px,8.5vw,44px)!important;line-height:1.1}
   .hero-sub{font-size:15px}
   .life-h{font-size:clamp(28px,7vw,40px)}
-  .pain-img,.ba-img{aspect-ratio:4/3;width:100%}
+  .pain-col img,.ba-col img{aspect-ratio:5/4!important;max-height:280px}
   .proto-img img{width:100%;height:auto;max-height:420px;object-fit:cover}
   .doc-band{padding:24px 16px}
   .doc-q{font-size:14px;line-height:1.55}
@@ -329,6 +333,7 @@ img{max-width:100%;height:auto;display:block}
   .ui b{font-size:15px}
   .modal{padding:32px 22px}
   .modal h3{font-size:22px}
+  .life-band{height:240px}
 }
 
 </style>

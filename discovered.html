@@ -59,7 +59,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--wm);color:var(--bk);line-
 
 /* BYLINE */
 .byline{display:flex;align-items:center;justify-content:center;gap:12px;padding:18px 0;border-top:1px solid var(--bo);border-bottom:1px solid var(--bo);margin-bottom:36px}
-.bl-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#D4B89F 0%,#9E7B5B 100%);display:flex;align-items:center;justify-content:center;font-family:'Cormorant',serif;font-size:18px;font-weight:500;color:#fff}
+.bl-av{width:48px;height:48px;border-radius:50%;overflow:hidden;background:#f0e9df;flex-shrink:0}
+.bl-av img{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block}
 .bl-meta{text-align:left;font-size:13px}
 .bl-name{font-weight:600;color:var(--bk);margin-bottom:2px}
 .bl-title{color:var(--mu);font-weight:300;font-size:12px}
@@ -167,7 +168,7 @@ img,iframe{max-width:100%;height:auto;display:block}
 </div>
 
 <div class="byline">
-  <div class="bl-av">SC</div>
+  <div class="bl-av"><img src="sarah_chen.jpg" alt="Sarah Chen" loading="lazy"></div>
   <div class="bl-meta">
     <div class="bl-name">By Sarah Chen</div>
     <div class="bl-title">Functional Health Practitioner · Updated May 2026</div>
