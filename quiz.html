@@ -126,6 +126,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--wm);color:var(--bk);min-h
   .qwrap{padding:24px 14px}
 }
 
+/* GLOBAL RESPONSIVE IMAGE FIX */
+img,iframe{max-width:100%;height:auto;display:block}
+
 /* FOOTER */
 .qfoot{padding:18px 24px;text-align:center;font-size:11px;color:var(--mu);font-weight:300;border-top:1px solid var(--bo);background:#fff}
 </style>
@@ -546,16 +549,18 @@ function submitQuiz() {
 function submitToKlaviyo(result) {
   const klaviyoListId = 'UdkvsY';
   const klaviyoCompanyId = 'YnQ4XE';
-  
-  // Build properties (no PHI — only outcome + email)
-  const properties = {
-    quiz_result: result,
-    quiz_completed_at: new Date().toISOString(),
-    source: 'keravex_quiz_v1',
-    medication_other: answers.medication_other || ''
-  };
-  
-  // Klaviyo Subscribe API
+
+  // Identify profile with custom properties (no PHI — only outcome)
+  if (window._learnq) {
+    _learnq.push(['identify', {
+      '$email': answers.email,
+      'quiz_result': result,
+      'quiz_completed_at': new Date().toISOString(),
+      'medication_other': answers.medication_other || ''
+    }]);
+  }
+
+  // Subscribe to list with consent
   fetch('https://a.klaviyo.com/client/subscriptions/?company_id=' + klaviyoCompanyId, {
     method: 'POST',
     headers: {
@@ -566,13 +571,13 @@ function submitToKlaviyo(result) {
       data: {
         type: 'subscription',
         attributes: {
-          custom_source: 'Keravex Quiz',
+          custom_source: 'Keravex Quiz · ' + result,
           profile: {
             data: {
               type: 'profile',
               attributes: {
                 email: answers.email,
-                properties: properties
+                subscriptions: { email: { marketing: { consent: 'SUBSCRIBED' } } }
               }
             }
           }
@@ -587,6 +592,10 @@ function submitToKlaviyo(result) {
         }
       }
     })
+  }).then(r => {
+    if (r.status !== 202) {
+      r.text().then(t => console.error('Klaviyo quiz response:', r.status, t));
+    }
   }).catch(err => console.warn('Klaviyo submit failed:', err));
 }
 

@@ -64,17 +64,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--wm);color:var(--bk);line-
 .bl-name{font-weight:600;color:var(--bk);margin-bottom:2px}
 .bl-title{color:var(--mu);font-weight:300;font-size:12px}
 
-/* VIDEO PLACEHOLDER */
-.vsl-wrap{background:var(--dk);border-radius:6px;overflow:hidden;margin:0 0 48px;position:relative;aspect-ratio:9/16;max-height:640px;width:100%;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 40px rgba(0,0,0,.18)}
-.vsl-wrap video{width:100%;height:100%;object-fit:cover}
-.vsl-placeholder{text-align:center;color:rgba(255,255,255,.6);padding:40px}
-.vsl-icon{font-size:48px;margin-bottom:14px;opacity:.4}
-.vsl-text{font-size:14px;font-weight:300;letter-spacing:.05em}
-
-/* DESKTOP video aspect */
-@media(min-width:680px){
-  .vsl-wrap{aspect-ratio:16/10;max-height:none}
-}
+/* VIDEO — VSL embed (Vimeo iframe, 16:9 responsive) */
+/* All VSL styles consolidated at end of stylesheet */
 
 /* ARTICLE BODY */
 .body p{font-size:18px;line-height:1.75;color:var(--bk);font-weight:300;margin-bottom:22px}
@@ -139,6 +130,21 @@ footer a{color:rgba(255,255,255,.7);text-decoration:none;margin:0 8px}
   .final-cta h2{font-size:28px}
   .head{padding:12px 18px}
 }
+
+/* GLOBAL RESPONSIVE IMAGE + VIDEO */
+img,iframe{max-width:100%;height:auto;display:block}
+
+/* VSL — Vimeo embed, responsive */
+.vsl-wrap{position:relative;width:100%;max-width:680px;margin:32px auto 12px;background:#000;border-radius:8px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.18)}
+/* aspect-ratio: 16/9 for landscape VSL, 9/16 for vertical/portrait VSL.
+   ЕСЛИ VIDEO ВЕРТИКАЛЬНОЕ (9:16) — поменяй padding-bottom ниже на 177.78% и max-width на 380px */
+.vsl-wrap .vsl-ratio{position:relative;padding-bottom:56.25%;height:0;overflow:hidden}
+.vsl-wrap .vsl-ratio iframe,.vsl-wrap .vsl-ratio video{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+.vsl-cap{font-size:13px;color:var(--mu);text-align:center;margin:0 auto 36px;font-style:italic;max-width:680px}
+
+@media(max-width:600px){
+  .vsl-wrap{margin:24px auto 8px;border-radius:6px}
+}
 </style>
 </head>
 <body>
@@ -169,18 +175,21 @@ footer a{color:rgba(255,255,255,.7);text-decoration:none;margin:0 8px}
   </div>
 </div>
 
-<!-- VSL embedded — placeholder until HeyGen render is ready -->
+<!-- VSL — Vimeo embed -->
 <div class="vsl-wrap" id="vslWrap">
-  <!-- WHEN VSL IS READY: replace this placeholder div with:
-       <video controls poster="poster.jpg" preload="metadata">
-         <source src="vsl_v1.mp4" type="video/mp4">
-       </video>
-  -->
-  <div class="vsl-placeholder">
-    <div class="vsl-icon">▶</div>
-    <div class="vsl-text">Video loading...</div>
+  <div class="vsl-ratio">
+    <!-- ВАЖНО: замени VIMEO_VIDEO_ID на ID видео из Vimeo (число типа 987654321).
+         Параметры: dnt=1 disables tracking, title=0 byline=0 portrait=0 убирают branding,
+         playsinline=1 для iOS inline, autopause=0 не паузит при скролле к другому видео -->
+    <iframe
+      src="https://player.vimeo.com/video/VIMEO_VIDEO_ID?title=0&byline=0&portrait=0&dnt=1&playsinline=1&autopause=0&pip=1"
+      frameborder="0"
+      allow="autoplay; fullscreen; picture-in-picture"
+      allowfullscreen
+      title="Keravex VSL"></iframe>
   </div>
 </div>
+<p class="vsl-cap">Watch Sarah's full story · 2:57</p>
 
 <div class="body">
 

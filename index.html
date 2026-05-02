@@ -9,6 +9,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+
+<!-- GTM -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-N2TQ3BGZ');</script>
+
+<!-- Klaviyo onsite -->
+<script async src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=YnQ4XE"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -223,7 +229,10 @@ nav{background:rgba(253,250,245,.97);backdrop-filter:blur(14px);border-bottom:1p
 .sc:hover{background:var(--td)}
 
 /* TOAST */
-.toast{position:fixed;bottom:80px;left:18px;z-index:198;background:#fff;border:1px solid var(--bo);border-left:3px solid var(--tr);border-radius:3px;padding:12px 15px;font-size:13px;box-shadow:0 6px 24px rgba(0,0,0,.1);max-width:244px;transform:translateX(-120%);transition:transform .4s cubic-bezier(.34,1.2,.64,1)}
+.toast{position:fixed;bottom:120px;left:18px;z-index:198;background:#fff;border:1px solid var(--bo);border-left:3px solid var(--tr);border-radius:3px;padding:12px 15px;font-size:13px;box-shadow:0 6px 24px rgba(0,0,0,.1);max-width:244px;transform:translateX(-120%);transition:transform .4s cubic-bezier(.34,1.2,.64,1)}
+@media(max-width:960px){
+  .toast{bottom:140px}
+}
 @media(max-width:500px){
   .toast{bottom:auto;top:74px;left:12px;right:12px;max-width:none;font-size:12px;padding:10px 13px;transform:translateY(-200%)}
   .toast.show{transform:translateY(0)!important}
@@ -299,6 +308,29 @@ footer{background:var(--dk);padding:40px;text-align:center}
 .hsdot.active{background:var(--tr);width:28px;border-radius:4px}
 @media(max-width:960px){.hslides{max-width:100%;aspect-ratio:16/10}}
 
+/* GLOBAL RESPONSIVE IMAGE FIX */
+img{max-width:100%;height:auto;display:block}
+
+/* MOBILE EXTRA CLEANUP */
+@media(max-width:600px){
+  .hero h1{font-size:clamp(32px,8.5vw,44px)!important;line-height:1.1}
+  .hero-sub{font-size:15px}
+  .life-h{font-size:clamp(28px,7vw,40px)}
+  .pain-img,.ba-img{aspect-ratio:4/3;width:100%}
+  .proto-img img{width:100%;height:auto;max-height:420px;object-fit:cover}
+  .doc-band{padding:24px 16px}
+  .doc-q{font-size:14px;line-height:1.55}
+  .pc{max-width:100%;padding:28px 18px}
+  .pcp{font-size:38px}
+  body{padding-bottom:96px}
+  .sticky{padding:10px 12px}
+  .sticky-cta{font-size:13px;padding:11px 16px}
+  .urg{gap:14px;padding:12px 14px}
+  .ui b{font-size:15px}
+  .modal{padding:32px 22px}
+  .modal h3{font-size:22px}
+}
+
 </style>
 
 <!-- Meta Pixel Code -->
@@ -312,6 +344,7 @@ fbq('track', 'PageView');
 
 </head>
 <body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N2TQ3BGZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="ann">⚡ Founding member pricing ends August 1. <span>only 347 of 500 spots remaining</span></div>
 
@@ -681,12 +714,12 @@ async function subM(e){
         data: {
           type: 'subscription',
           attributes: {
+            custom_source: 'Keravex Homepage Waitlist',
             profile: {
               data: {
                 type: 'profile',
                 attributes: {
                   email: email,
-                  properties: { source: 'keravex_homepage_waitlist' },
                   subscriptions: { email: { marketing: { consent: 'SUBSCRIBED' } } }
                 }
               }
@@ -696,17 +729,19 @@ async function subM(e){
         }
       })
     });
-    if(response.status === 202 || response.ok){
+    if(response.status === 202){
       if(window.fbq) fbq('track','Lead',{content_name:'Waitlist'});
       document.getElementById('mf').style.display='none';
       document.getElementById('mok').style.display='block';
       setTimeout(closeM, 2500);
     } else {
+      const errText = await response.text();
+      console.error('Klaviyo response:', response.status, errText);
       throw new Error('Subscription failed: ' + response.status);
     }
   } catch(err){
     console.error('Klaviyo error:', err);
-    alert('Something went wrong. Please try again or email hello@keravex.com');
+    alert('Something went wrong. Please try again or email hi@keravex.com');
     if(submitBtn){submitBtn.disabled=false; submitBtn.textContent=originalText;}
   }
   return false;
