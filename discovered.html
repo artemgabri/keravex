@@ -134,13 +134,12 @@ footer a{color:rgba(255,255,255,.7);text-decoration:none;margin:0 8px}
 /* GLOBAL RESPONSIVE IMAGE + VIDEO */
 img,iframe{max-width:100%;height:auto;display:block}
 
-/* VSL — Vimeo embed, responsive */
-.vsl-wrap{position:relative;width:100%;max-width:680px;margin:32px auto 12px;background:#000;border-radius:8px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.18)}
-/* aspect-ratio: 16/9 for landscape VSL, 9/16 for vertical/portrait VSL.
-   ЕСЛИ VIDEO ВЕРТИКАЛЬНОЕ (9:16) — поменяй padding-bottom ниже на 177.78% и max-width на 380px */
-.vsl-wrap .vsl-ratio{position:relative;padding-bottom:56.25%;height:0;overflow:hidden}
+/* VSL — Vimeo embed, responsive (9:16 VERTICAL — VSL was rendered for Meta vertical feed)
+   ЕСЛИ VIDEO ГОРИЗОНТАЛЬНОЕ (16:9): поменяй padding-bottom на 56.25% и max-width на 680px */
+.vsl-wrap{position:relative;width:100%;max-width:380px;margin:32px auto 12px;background:#000;border-radius:8px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.18)}
+.vsl-wrap .vsl-ratio{position:relative;padding-bottom:177.78%;height:0;overflow:hidden}
 .vsl-wrap .vsl-ratio iframe,.vsl-wrap .vsl-ratio video{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
-.vsl-cap{font-size:13px;color:var(--mu);text-align:center;margin:0 auto 36px;font-style:italic;max-width:680px}
+.vsl-cap{font-size:13px;color:var(--mu);text-align:center;margin:0 auto 36px;font-style:italic;max-width:380px}
 
 @media(max-width:600px){
   .vsl-wrap{margin:24px auto 8px;border-radius:6px}
@@ -178,11 +177,8 @@ img,iframe{max-width:100%;height:auto;display:block}
 <!-- VSL — Vimeo embed -->
 <div class="vsl-wrap" id="vslWrap">
   <div class="vsl-ratio">
-    <!-- ВАЖНО: замени VIMEO_VIDEO_ID на ID видео из Vimeo (число типа 987654321).
-         Параметры: dnt=1 disables tracking, title=0 byline=0 portrait=0 убирают branding,
-         playsinline=1 для iOS inline, autopause=0 не паузит при скролле к другому видео -->
     <iframe
-      src="https://player.vimeo.com/video/VIMEO_VIDEO_ID?title=0&byline=0&portrait=0&dnt=1&playsinline=1&autopause=0&pip=1"
+      src="https://player.vimeo.com/video/1188669903?title=0&byline=0&portrait=0&dnt=1&playsinline=1&autopause=0&pip=1"
       frameborder="0"
       allow="autoplay; fullscreen; picture-in-picture"
       allowfullscreen
