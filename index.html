@@ -502,8 +502,8 @@ h3 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); }
 
 /* MANUFACTURING */
 .manufacturing { padding: 64px 0; background: var(--bg-main); }
-.manufacturing-hero { margin: 32px auto 32px; max-width: 1080px; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid var(--color-border); }
-.manufacturing-hero img { width: 100%; height: auto; display: block; }
+.manufacturing-hero { margin: 32px auto 32px; max-width: 820px; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid var(--color-border); }
+.manufacturing-hero img { width: 100%; height: auto; max-height: 460px; object-fit: cover; object-position: center; display: block; }
 .manufacturing-hero-caption { padding: 14px 24px; background: var(--bg-card); border-top: 1px solid var(--color-border); font-size: 13px; color: var(--color-text-soft); font-style: italic; text-align: center; }
 .man-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 920px; margin: 32px auto 0; }
 @media (max-width: 768px) { .man-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -626,10 +626,10 @@ h3 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); }
       <div class="hero-gallery">
         <div class="hero-image-main">
           <span class="hero-badge">⭐ FOUNDING 500</span>
-          <img id="hero-main-img" src="hero-bottle.png" alt="Keravex Recovery Protocol">
+          <img id="hero-main-img" src="hero-bottle.jpg" alt="Keravex Recovery Protocol">
         </div>
         <div class="hero-thumbs">
-          <div class="hero-thumb active" data-img="hero-bottle.png" title="Product"><img src="hero-bottle.png" alt="Keravex bottle"></div>
+          <div class="hero-thumb active" data-img="hero-bottle.jpg" title="Product"><img src="hero-bottle.jpg" alt="Keravex bottle"></div>
           <div class="hero-thumb" data-img="hero-thumb-glp1.jpg" title="Built for GLP-1 absorption"><img src="hero-thumb-glp1.jpg" alt="Built for GLP-1 absorption"></div>
           <div class="hero-thumb" data-img="hero-thumb-window.jpg" title="The 90-day Recovery Window"><img src="hero-thumb-window.jpg" alt="90-day Recovery Window"></div>
           <div class="hero-thumb" data-img="hero-thumb-mechanism.jpg" title="Three-Way Blockade"><img src="hero-thumb-mechanism.jpg" alt="Three-Way Blockade"></div>
@@ -697,7 +697,7 @@ h3 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); }
             <div class="bundle-radio-mini"></div>
             <div class="bundle-card">
               <div class="bundle-thumb">
-                <img src="hero-bottle.png" alt="1 bottle">
+                <img src="hero-bottle.jpg" alt="1 bottle">
                 <span class="bundle-thumb-count">×1</span>
               </div>
               <div class="bundle-info">
@@ -718,7 +718,7 @@ h3 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); }
             <div class="bundle-radio-mini"></div>
             <div class="bundle-card">
               <div class="bundle-thumb">
-                <img src="bundle-3pack.png" alt="3 bottles">
+                <img src="bundle-3pack.jpg" alt="3 bottles">
                 <span class="bundle-thumb-count">×3</span>
               </div>
               <div class="bundle-info">
@@ -740,7 +740,7 @@ h3 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); }
             <div class="bundle-radio-mini"></div>
             <div class="bundle-card">
               <div class="bundle-thumb">
-                <img src="bundle-3pack.png" alt="6 bottles">
+                <img src="bundle-6pack.jpg" alt="6 bottles">
                 <span class="bundle-thumb-count">×6</span>
               </div>
               <div class="bundle-info">
@@ -996,7 +996,7 @@ h3 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); }
 
     <div class="testimonial-grid">
       <div class="test-card">
-        <img src="portrait-jessica.jpg" alt="Jessica M., 41">
+        <img src="avatar1.jpeg" alt="Jessica M., 41">
         <div class="test-card-body">
           <div class="test-stars">★★★★★</div>
           <div class="test-quote">"I lost 41 pounds on Mounjaro and probably 30% of my hair with it. By month two on Keravex my shedding cut in half. By month three I had a full inch of new growth at my hairline."</div>
@@ -1006,7 +1006,7 @@ h3 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); }
         </div>
       </div>
       <div class="test-card">
-        <img src="portrait-rachel.jpg" alt="Rachel T., 47">
+        <img src="avatar2.jpeg" alt="Rachel T., 47">
         <div class="test-card-body">
           <div class="test-stars">★★★★<span class="empty">★</span></div>
           <div class="test-quote">"I'm an executive coach. I'd backed my camera up so many times to hide the thinning that I just stopped scheduling video. By month three I was back on camera, no thoughts about the angle."</div>
@@ -1016,7 +1016,7 @@ h3 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); }
         </div>
       </div>
       <div class="test-card">
-        <img src="portrait-anna.jpg" alt="Anna C., 52">
+        <img src="avatar3.jpeg" alt="Anna C., 52">
         <div class="test-card-body">
           <div class="test-stars">★★★★★</div>
           <div class="test-quote">"I'm 52. I lost 64 pounds on Ozempic. Then my hair started thinning at the crown and I stopped feeling 30. Three months in, my crown is filling in. I look like myself again."</div>
@@ -1026,7 +1026,7 @@ h3 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); }
         </div>
       </div>
       <div class="test-card">
-        <img src="portrait-kara.jpg" alt="Kara H., 38">
+        <img src="avatar4.jpeg" alt="Kara H., 38">
         <div class="test-card-body">
           <div class="test-stars">★★★★<span class="empty">★</span></div>
           <div class="test-quote">"I tried biotin gummies, collagen powder, $89 hair vitamins, that purple shampoo. None of it did anything. Three weeks on Keravex and my husband said: 'There's less hair on the bathroom floor.' Most romantic thing he's ever said."</div>
@@ -1036,7 +1036,7 @@ h3 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); }
         </div>
       </div>
       <div class="test-card">
-        <img src="sandra-with-bottle.jpg" alt="Sandra P., 49 — RN">
+        <img src="avatar5+bottle.jpeg" alt="Sandra P., 49 — RN">
         <div class="test-card-body">
           <div class="test-stars">★★★★★</div>
           <div class="test-quote">"I'm an ICU nurse. I read every label. The bisglycinate iron, the picolinate zinc, the methylated B12 — these are the forms we'd actually want a malabsorption patient on. This is a clinically-formulated absorption protocol."</div>
@@ -1046,7 +1046,7 @@ h3 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); }
         </div>
       </div>
       <div class="test-card">
-        <img src="erica-with-bottle.jpg" alt="Erica W., 44">
+        <img src="avatar1+bottle.jpeg" alt="Erica W., 44">
         <div class="test-card-body">
           <div class="test-stars">★★★★★</div>
           <div class="test-quote">"I had a clip-in extension order in my Amazon cart and a wig consultation booked. Three months later, I cancelled the consult, returned the extensions, and my eight-year-old said, 'Mom your hair looks fluffy again.' I cried."</div>
@@ -1694,7 +1694,7 @@ h3 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); }
 <div class="sticky-bar" id="sticky-bar">
   <div class="sticky-bar-content">
     <div class="sticky-product">
-      <img src="hero-bottle.png" alt="">
+      <img src="hero-bottle.jpg" alt="">
       <div class="sticky-info">
         <div class="sticky-info-name" id="sticky-name">Recovery Pack · 90-day window</div>
         <div class="sticky-info-price"><s id="sticky-old">$237</s><strong id="sticky-price">$119</strong> · $20 deposit today</div>
