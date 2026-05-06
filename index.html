@@ -184,9 +184,9 @@ h3 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); }
 .bundle-info-supply { font-size: 13px; color: var(--color-text-soft); }
 .bundle-info-perks { font-size: 12px; color: var(--color-success); font-weight: 600; margin-top: 6px; display: flex; align-items: center; gap: 4px; }
 .bundle-info-perks::before { content: "🎁"; }
-.bundle-pricing { text-align: right; }
+.bundle-pricing { text-align: right; padding-top: 30px; }
 .bundle-price { font-size: 24px; font-weight: 800; color: var(--color-text); font-family: var(--font-display); font-variation-settings: 'opsz' 144, 'SOFT' 0, 'wght' 700; line-height: 1; }
-.bundle-price-old { font-size: 13px; color: var(--color-strike); text-decoration: line-through; display: block; margin-bottom: 2px; }
+.bundle-price-old { font-size: 14px; color: #6E5D4A; text-decoration: line-through; text-decoration-thickness: 1.5px; display: block; margin-bottom: 4px; font-weight: 600; }
 .bundle-price-perday { font-size: 11px; color: var(--color-text-muted); margin-top: 4px; }
 .bundle-radio-mini { width: 24px; height: 24px; border: 2px solid var(--color-border-strong); border-radius: 50%; position: absolute; top: 16px; right: 16px; transition: all .2s; background: var(--bg-card); display: flex; align-items: center; justify-content: center; }
 .bundle-option.selected { border-color: var(--color-primary); background: linear-gradient(180deg, #FEFAF3, #FBF5E8); box-shadow: 0 4px 16px rgba(198,107,61,0.15); }
@@ -260,7 +260,7 @@ h3 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); }
 
 /* MINI FAQ (above the fold) */
 .mini-faq { padding: 56px 0; background: var(--bg-main); }
-.mini-faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 920px; margin: 32px auto 0; }
+.mini-faq-grid { display: grid; grid-template-columns: 1fr; gap: 12px; max-width: 720px; margin: 32px auto 0; }
 @media (max-width: 768px) { .mini-faq-grid { grid-template-columns: 1fr; } }
 .mini-faq-item { background: var(--bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }
 .mini-faq-q { width: 100%; padding: 16px 20px; text-align: left; font-size: 14px; font-weight: 600; color: var(--color-text); display: flex; align-items: center; justify-content: space-between; gap: 12px; font-family: var(--font-body); }
@@ -503,7 +503,7 @@ h3 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); }
 /* MANUFACTURING */
 .manufacturing { padding: 64px 0; background: var(--bg-main); }
 .manufacturing-hero { margin: 32px auto 32px; max-width: 820px; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid var(--color-border); }
-.manufacturing-hero img { width: 100%; height: auto; max-height: 460px; object-fit: cover; object-position: center; display: block; }
+.manufacturing-hero img { width: 100%; height: auto; display: block; }
 .manufacturing-hero-caption { padding: 14px 24px; background: var(--bg-card); border-top: 1px solid var(--color-border); font-size: 13px; color: var(--color-text-soft); font-style: italic; text-align: center; }
 .man-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 920px; margin: 32px auto 0; }
 @media (max-width: 768px) { .man-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -542,9 +542,9 @@ h3 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); }
 .disclaimers p { margin-bottom: 10px; }
 
 /* STICKY OFFER BAR — desktop + mobile after hero scroll */
-.sticky-bar { position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(180deg, rgba(255,255,255,0.98), var(--bg-card)); border-top: 2px solid var(--color-primary); padding: 14px 20px; z-index: 95; box-shadow: 0 -8px 32px rgba(42,36,24,0.15); display: none; align-items: center; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transform: translateY(100%); transition: transform .3s ease; }
+.sticky-bar { position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(180deg, rgba(255,255,255,0.98), var(--bg-card)); border-top: 2px solid var(--color-primary); padding: 14px 20px; z-index: 95; box-shadow: 0 -8px 32px rgba(42,36,24,0.15); display: none; align-items: center; justify-content: center; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transform: translateY(100%); transition: transform .3s ease; }
 .sticky-bar.visible { display: flex; transform: translateY(0); }
-.sticky-bar-content { display: flex; align-items: center; gap: 16px; flex: 1; min-width: 0; max-width: var(--container-max); margin: 0 auto; width: 100%; }
+.sticky-bar-content { display: flex; align-items: center; gap: 16px; min-width: 0; max-width: var(--container-max); width: 100%; }
 .sticky-product { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
 .sticky-product img { width: 56px; height: 56px; border-radius: var(--radius-sm); object-fit: contain; background: var(--bg-warm); padding: 4px; }
 @media (max-width: 640px) { .sticky-product img { width: 44px; height: 44px; } }
@@ -822,30 +822,7 @@ h3 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); }
   </div>
 </section>
 
-<!-- 4. AUTHORITY STRIP -->
-<section class="authority-strip">
-  <div class="container">
-    <div class="authority-inner">
-      <span class="authority-label">Built around peer-reviewed research from</span>
-      <div class="authority-source">
-        <div class="authority-source-mark">UCSF</div>
-        <div class="authority-source-name">School of Medicine<small>Mirmirani et al., 2026</small></div>
-      </div>
-      <div class="authority-source">
-        <div class="authority-source-mark">CC</div>
-        <div class="authority-source-name">Cleveland Clinic<small>Zhou, Sept 2025</small></div>
-      </div>
-      <div class="authority-source">
-        <div class="authority-source-mark">TMC</div>
-        <div class="authority-source-name">Tufts Medical Center<small>Rossi via CNN, Nov 2025</small></div>
-      </div>
-      <div class="authority-source">
-        <div class="authority-source-mark">AAD</div>
-        <div class="authority-source-name">Am. Acad. Dermatology<small>Position on TE</small></div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- 4. AUTHORITY STRIP — removed (duplicate of research strip in section 17) -->
 
 <!-- 5. MINI FAQ -->
 <section class="mini-faq">
@@ -1694,7 +1671,7 @@ h3 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); }
 <div class="sticky-bar" id="sticky-bar">
   <div class="sticky-bar-content">
     <div class="sticky-product">
-      <img src="hero-bottle.jpg" alt="">
+      <img id="sticky-img" src="bundle-3pack.jpg" alt="">
       <div class="sticky-info">
         <div class="sticky-info-name" id="sticky-name">Recovery Pack · 90-day window</div>
         <div class="sticky-info-price"><s id="sticky-old">$237</s><strong id="sticky-price">$119</strong> · $20 deposit today</div>
@@ -1762,7 +1739,11 @@ document.querySelectorAll('.bundle-option').forEach(opt => {
 
     const tierLabel = selectedTier === 'starter' ? 'Keravex Starter · 30-day trial' :
       selectedTier === 'recovery-pack' ? 'Recovery Pack · 90-day window' : 'Full Restoration · 180 days';
+    const tierImg = selectedTier === 'starter' ? 'hero-bottle.jpg' :
+      selectedTier === 'recovery-pack' ? 'bundle-3pack.jpg' : 'bundle-6pack.jpg';
     document.getElementById('sticky-name').textContent = tierLabel;
+    const stickyImg = document.getElementById('sticky-img');
+    if (stickyImg) stickyImg.src = tierImg;
     document.getElementById('sticky-price').textContent = '$' + selectedPrice;
     const stickyOld = document.getElementById('sticky-old');
     if (stickyOld) stickyOld.textContent = '$' + selectedOld;
