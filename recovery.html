@@ -1988,10 +1988,18 @@ window.addEventListener('scroll', () => {
 
 // ===== RESERVE NOW =====
 function reserveNow() {
+  // Map landing tier → Gumroad version name (must match version names exactly in Gumroad)
+  const TIER_TO_VERSION = {
+    'starter': 'Starter (1 bottle)',
+    'recovery': 'Recovery Pack (3 bottles)',
+    'restoration': 'Full Restoration (6 bottles)'
+  };
+  const gumroadVersion = TIER_TO_VERSION[selectedTier] || 'Starter (1 bottle)';
+
   if (window.fbq) fbq('track', 'InitiateCheckout', {
-    value: 20,
+    value: selectedPrice,
     currency: 'USD',
-    content_name: 'Recovery Pack Order',
+    content_name: 'Keravex Hair Recovery Protocol',
     content_ids: [selectedTier],
     contents: [{ id: selectedTier, quantity: 1, item_price: selectedPrice }]
   });
@@ -2004,7 +2012,7 @@ function reserveNow() {
   });
   if (window.gtag) gtag('event', 'begin_checkout', {
     currency: 'USD',
-    value: 20,
+    value: selectedPrice,
     items: [{ item_id: selectedTier, item_name: 'Keravex ' + selectedTier, price: selectedPrice }]
   });
 
@@ -2014,7 +2022,7 @@ function reserveNow() {
       tier: selectedTier,
       price: selectedPrice,
       subscription: isSubscription,
-      $value: 20,
+      $value: selectedPrice,
       ...getUTMs()
     }]);
   }
@@ -2022,16 +2030,16 @@ function reserveNow() {
   const utm = getUTMs();
   const params = new URLSearchParams({
     wanted: 'true',
+    option: gumroadVersion,  // Gumroad reads `option` param to preselect version
     tier: selectedTier,
     sub: isSubscription ? 'yes' : 'no',
     ...utm
   });
-  // NOTE: Gumroad single-product passes these as URL params. Tier isn't parsed natively;
-  // to map tier → buyer, use Gumroad webhook + match by email/timestamp, or Klaviyo profile.
 
   // ===== GUMROAD OVERLAY: open checkout as modal on keravex.com (no domain switch) =====
   // Update the hidden Gumroad trigger link's href with current selection + UTMs, then click it.
   // Gumroad.js intercepts the click (data-gumroad-overlay-checkout="true") and opens overlay.
+  // The ?option= param preselects the version inside the overlay.
   // Fallback: if Gumroad.js fails to load/intercept, the link navigates to Gumroad normally.
   const overlayTrigger = document.getElementById('gumroad-overlay-trigger');
   if (overlayTrigger) {
