@@ -2165,16 +2165,20 @@ document.getElementById('popup-form').addEventListener('submit', async (e) => {
 })();
 
 // ===== PURCHASE COMPLETE HANDLER =====
-// Fires when user returns from Gumroad with ?purchase_complete=true
-// Set in Gumroad product settings: "Redirect URL after purchase" →
-// https://keravex.com/recovery.html?purchase_complete=true&value={{price}}&order={{sale_id}}
-(function() {
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('purchase_complete') !== 'true') return;
+// Two trigger mechanisms (use whichever fires first):
+// 1. Gumroad postMessage 'sale' event — fires INSIDE overlay when purchase completes (no redirect URL needed)
+// 2. URL parameter fallback — fires if user returns with ?purchase_complete=true (Gumroad redirect URL config)
+// Both call firePurchasePixels() which handles deduplication via orderId
 
-  const value = parseFloat(params.get('value')) || 20;
-  const orderId = params.get('order') || ('order_' + Date.now());
-  const tier = params.get('tier') || 'recovery-pack';
+const FIRED_PIXEL_ORDERS = new Set();
+
+function firePurchasePixels(value, orderId, tier) {
+  // Deduplicate — prevent double firing if both triggers fire for same order
+  if (FIRED_PIXEL_ORDERS.has(orderId)) {
+    console.log('[Keravex] Pixels already fired for order:', orderId);
+    return;
+  }
+  FIRED_PIXEL_ORDERS.add(orderId);
 
   console.log('[Keravex] Purchase complete detected:', { value, orderId, tier });
 
@@ -2282,6 +2286,42 @@ document.getElementById('popup-form').addEventListener('submit', async (e) => {
   if (history.replaceState) {
     history.replaceState(null, '', window.location.pathname);
   }
+}
+
+// ===== TRIGGER 1: Gumroad PostMessage 'sale' event =====
+// Fires when purchase completes inside the Gumroad overlay on this page
+// Docs: https://blog.gumroad.com/post/186842238393/listen-for-purchases-within-the-gumroad-overlay
+window.addEventListener('message', function(ev) {
+  if (!ev.data) return;
+  let saleData;
+  try {
+    saleData = typeof ev.data === 'string' ? JSON.parse(ev.data) : ev.data;
+  } catch (e) {
+    return; // Not JSON, ignore
+  }
+  if (saleData.post_message_name !== 'sale') return;
+
+  console.log('[Keravex] Gumroad sale postMessage received:', saleData);
+
+  // Parse sale data — Gumroad sends price in cents typically
+  const rawPrice = saleData.price || saleData.amount || saleData.purchase_total || 2000;
+  const value = rawPrice > 100 ? rawPrice / 100 : rawPrice; // Cents → dollars if > 100
+  const orderId = saleData.sale_id || saleData.order_id || ('gr_' + Date.now());
+  const tier = saleData.product_permalink || saleData.product_id || 'founding';
+
+  firePurchasePixels(value, orderId, tier);
+}, false);
+
+// ===== TRIGGER 2: URL parameter fallback (only if Gumroad redirect URL is set) =====
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('purchase_complete') !== 'true') return;
+
+  const value = parseFloat(params.get('value')) || 20;
+  const orderId = params.get('order') || ('order_' + Date.now());
+  const tier = params.get('tier') || 'recovery-pack';
+
+  firePurchasePixels(value, orderId, tier);
 })();
 
 // ===== THANKS MODAL =====
